@@ -21,7 +21,7 @@ $(function(){
 			};
         }
 		if(opt.setMem){
-			var tabOpt = localStorage.getItem("tabOpt");
+			var tabOpt = !/*@cc_on!@*/0 ? localStorage.getItem("tabOpt") : userData.getAttribute("tabOpt");
 			opt.tabCont.eq(tabOpt)
 				.show()
 				.siblings(opt.tabCont)
@@ -44,7 +44,7 @@ $(function(){
 					.siblings(opt.tabCont)
 					.hide();
 				if(opt.setMem){
-					localStorage.setItem("tabOpt",index);
+					!/*@cc_on!@*/0 ? localStorage.setItem("tabOpt",index) : userData.setAttribute("tabOpt",index);// 兼容现代浏览器和ie记住选择
 				}
 			}, opt.delay);
 		 });
