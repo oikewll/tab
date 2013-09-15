@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>tab+</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta name="description" content="tab+" />
+<link href="css/style.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,700' rel='stylesheet'>
+<script src="js/jquery.min.js"></script>
+<script>
+$(function(){
+	function ToolTaber(opt){
+        if(!opt){
+        	//set default
+	        opt = {
+				tabs     : undefined,
+				tabCont  : undefined,
+				tabClass : undefined,
+				delay    : 400,
+				setMem   : false //记住最后一次打开的tab
+			};
+        }
+		if(opt.setMem){
+			var tabOpt = localStorage.getItem("tabOpt");
+			opt.tabCont.eq(tabOpt)
+				.show()
+				.siblings(opt.tabCont)
+				.hide();
+			opt.tabs.eq(tabOpt)
+				.addClass(opt.tabClass)
+				.siblings(opt.tabs)
+				.removeClass(opt.tabClass);
+		}
+		opt.tabs.each(function (){
+			var rel = $(this).attr("rel");
+			var index = $(this).index();
+			var that = this;
+			HoverTab($(this), function (){
+				$(that).addClass(opt.tabClass)
+					.siblings(opt.tabs)
+					.removeClass(opt.tabClass);
+				opt.tabCont.eq(index)
+					.show()
+					.siblings(opt.tabCont)
+					.hide();
+				if(opt.setMem){
+					localStorage.setItem("tabOpt",index);
+				}
+			}, opt.delay);
+		 });
+    }
+	function HoverTab(el, fn, time) {
+	    var evt = ["click", "mouseover"],//event
+	 	waitInterval;
+	    var rel = el.attr("rel");
+		for(var i = 0;i < evt.length;i++){
+			switch (evt[i]) {
+	            case "click":
+	                if (waitInterval) {
+	                    window.clearTimeout(waitInterval);
+	                }
+	                el.click(function(){
+	                	fn();
+	                })
+	            break;
+	            case "mouseover":
+	                el.bind({
+	                	mouseover:function(){
+		                    if (waitInterval) {
+		                        window.clearTimeout(waitInterval);
+		                    }
+		                    waitInterval = window.setTimeout(function () {
+		                        fn();
+		                    }, time);
+	                	},
+	                	mouseout:function(){
+		                	if (waitInterval != undefined) {
+		                        window.clearTimeout(waitInterval);
+		                    }	
+	                	}
+	                })
+	            break;
+	        }
+		}
+	}
+	ToolTaber({
+		tabs      : $("#tabber li"),
+		tabCont   : $("#wrapCont li"),
+		tabClass  : 'current',
+		setMem    : true,
+		delay     : 400
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="mainboard">
+	<ul id="tabber" class="clearfix">
+		<li class="current">tab01</li>
+		<li>tab02</li>
+		<li>tab03</li>
+		<li>tab04</li>
+		<li>tab05</li>
+	</ul>
+	<ul id="wrapCont">
+		<li style="display:block;">content01</li>
+		<li>content02</li>
+		<li>content03</li>
+		<li>content04</li>
+		<li>content05</li>
+	</ul>
+</div>
+<div class="footer">
+	code by <a href="http://weibo.com/goochin" target="_blank">Goochin</a>, host on Github
+</div>
+</body>
+</html>
