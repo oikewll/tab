@@ -1,19 +1,19 @@
-#tab+ plugin
+# jquery tab+ plugin
 
 tab+是一个基于jQuery框架的tab切换插件,[Live demo](https://oikewll.github.io/tab)
 
 ##useage
 
-1. 头部引入tab.min.js
+头部引入tab.min.js
 
 ```
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-    <script src="https://oikewll.github.io/tab/js/tab.min.js"></script>
+    <script src="https://oikewll.github.io/tab/js/jquery.tab.js"></script>
 </head>
 ```
 
-2. 设置切换对象
+设置切换对象
 
 ```js
 $("#tabber li").taber({              //这个是切换触发的元素
