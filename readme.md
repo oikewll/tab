@@ -1,6 +1,6 @@
 # jquery tab+ plugin
 
-tab+是一个基于jQuery框架的tab切换插件,[Live demo](https://oikewll.github.io/tab)
+tab+是一个基于jQuery框架的tab切换插件,[Live demo](http://oikewll.github.io/tab)
 
 ##useage
 
@@ -9,7 +9,7 @@ tab+是一个基于jQuery框架的tab切换插件,[Live demo](https://oikewll.gi
 ```
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-    <script src="https://oikewll.github.io/tab/js/jquery.tab.js"></script>
+    <script src="http://oikewll.github.io/tab/js/jquery.tab.js"></script>
 </head>
 ```
 
