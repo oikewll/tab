@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
   <head>
     <meta charset='utf-8' />
@@ -77,3 +78,48 @@ $ git checkout gh-pages
 
   </body>
 </html>
+=======
+<head>
+<title>tab+</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta name="description" content="tab+" />
+<link href="css/style.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,700' rel='stylesheet'>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.tab.js"></script>
+<script>
+$(function(){
+	$("#tabber li").taber({
+		target    : $("#wrapCont li"),
+		tabClass  : 'current',
+		setMem    : true,
+		delay     : 300,
+		show      : 'fade'
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="mainboard">
+	<ul id="tabber" class="clearfix">
+		<li class="current">tab01</li>
+		<li>tab02</li>
+		<li>tab03</li>
+		<li>tab04</li>
+		<li>tab05</li>
+	</ul>
+	<ul id="wrapCont">
+		<li style="display:block;">content01</li>
+		<li>content02</li>
+		<li>content03</li>
+		<li>content04</li>
+		<li>content05</li>
+	</ul>
+</div>
+<div class="footer">
+	code by <a href="http://weibo.com/goochin" target="_blank">Goochin</a>, host on Github
+</div>
+</body>
+</html>
+>>>>>>> master
