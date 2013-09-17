@@ -86,7 +86,7 @@
         userData        : null,
         name            : location.hostname,
         isLocalStorage  : window.localStorage ? true : false,
-        init:function(){
+        init : function(){
             if (!UserData.userData) {
                 try {
                     UserData.userData = document.createElement('INPUT');
@@ -105,7 +105,7 @@
         },
         setItem : function(key, value) {
         	if(this.isLocalStorage){
-        		localStorage.setItem(key,value);
+        		localStorage.setItem(key,value)
         	}else{
 	        	if(UserData.init()){
 	                UserData.userData.load(UserData.name);
@@ -116,7 +116,7 @@
         },
         getItem : function(key) {
         	if(this.isLocalStorage){
-        		localStorage.getItem(key);
+        		return window.localStorage.getItem(key);
         	}else{
 	        	if(UserData.init()){
 		            UserData.userData.load(UserData.name);
