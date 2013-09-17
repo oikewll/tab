@@ -16,7 +16,7 @@
 	    	opt.delay ? opt.delay : opt.delay = def.delay;
 	    	opt.setMem ? opt.setMem : opt.setMem = def.setMem;
 			if(opt.setMem){
-				var tabOpt = $.localData.get("tabOpt");
+				var tabOpt = $.UserData.getItem("tabOpt");
 				opt.target.eq(tabOpt)
 					.show()
 					.siblings(opt.target)
@@ -45,7 +45,7 @@
 							.hide();
 					}
 					if(opt.setMem){
-						$.localData.set("tabOpt",index)
+						$.UserData.setItem("tabOpt",index)
 					}
 				}, opt.delay, opt.mode);
 			});
@@ -82,59 +82,58 @@
 	    }
 	});
 	//封装localStorage和UserData方法
-	$.localData = {
-        host           : location.hostname ? location.hostname : 'localStatus',
-        isLocalStorage : window.localStorage ? true : false,
-        dataDom        : null,
-
-        initDom:function(){ //初始化userData
-            if(!this.dataDom){
-                try{
-                    this.dataDom = document.createElement('input');
-                    this.dataDom.type = 'hidden';
-                    this.dataDom.style.display = "none";
-                    this.dataDom.addBehavior('#default#userData');
-                    document.body.appendChild(this.dataDom);
-                    var exDate = new Date();
-                    exDate = exDate.getDate()+30;
-                    this.dataDom.expires = exDate.toUTCString();
-                }catch(ex){
+	$.UserData = {
+        userData        : null,
+        name            : location.hostname,
+        isLocalStorage  : window.localStorage ? true : false,
+        init:function(){
+            if (!UserData.userData) {
+                try {
+                    UserData.userData = document.createElement('INPUT');
+                    UserData.userData.type = "hidden";
+                    UserData.userData.style.display = "none";
+                    UserData.userData.addBehavior ("#default#userData");
+                    document.body.appendChild(UserData.userData);
+                    var expires = new Date();
+                    expires.setDate(expires.getDate()+365);
+                    UserData.userData.expires = expires.toUTCString();
+                } catch(e) {
                     return false;
                 }
             }
             return true;
         },
-        set:function(key,value){
-            if(this.isLocalStorage){
-                window.localStorage.setItem(key,value);
-            }else{
-                if(this.initDom()){
-                    this.dataDom.load(this.host);
-                    this.dataDom.setAttribute(key,value);
-                    this.dataDom.save(this.host)
-                }
-            }
+        setItem : function(key, value) {
+        	if(isLocalStorage){
+        		localStorage.setItem(key,value);
+        	}else{
+	        	if(UserData.init()){
+	                UserData.userData.load(UserData.name);
+	                UserData.userData.setAttribute(key, value);
+	                UserData.userData.save(UserData.name);
+	            }
+        	}
         },
-        get:function(key){
-            if(this.isLocalStorage){
-                return window.localStorage.getItem(key);
-            }else{
-                if(this.initDom()){
-                    this.dataDom.load(this.host);
-                    return this.dataDom.getAttribute(key);
-                }
-            }
+        getItem : function(key) {
+        	if(isLocalStorage){
+        		localStorage.setItem(key,value);
+        	}else{
+	        	if(UserData.init()){
+		            UserData.userData.load(UserData.name);
+		            return UserData.userData.getAttribute(key)
+	            }
+        	}
         },
-        remove:function(key){
-            if(this.isLocalStorage){
-                localStorage.removeItem(key);
-            }else{
-                if(this.initDom()){
-                    this.dataDom.load(this.host);
-                    this.dataDom.removeAttribute(key);
-                    this.dataDom.save(this.host)
-                }
-            }
+        remove : function(key) {
+        	if (isLocalStorage) {
+        		localStorage.removeItem(key);
+        	}else{
+	        	if(UserData.init()){
+		            UserData.userData.load(UserData.name);
+		            UserData.userData.removeAttribute(key);
+		            UserData.userData.save(UserData.name);
+	            }
+        	}
         }
-    }
+    };
 })(jQuery);
