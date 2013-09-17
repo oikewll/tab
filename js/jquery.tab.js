@@ -83,21 +83,21 @@
 	});
 	//封装localStorage和UserData方法
 	$.localData = {
-        hname          : location.hostname ? location.hostname : 'localStatus',
+        host           : location.hostname ? location.hostname : 'localStatus',
         isLocalStorage : window.localStorage ? true : false,
         dataDom        : null,
 
         initDom:function(){ //初始化userData
             if(!this.dataDom){
                 try{
-                    this.dataDom = document.createElement('input');//这里使用hidden的input元素
+                    this.dataDom = document.createElement('input');
                     this.dataDom.type = 'hidden';
                     this.dataDom.style.display = "none";
-                    this.dataDom.addBehavior('#default#userData');//这是userData的语法
+                    this.dataDom.addBehavior('#default#userData');
                     document.body.appendChild(this.dataDom);
                     var exDate = new Date();
                     exDate = exDate.getDate()+30;
-                    this.dataDom.expires = exDate.toUTCString();//设定过期时间
+                    this.dataDom.expires = exDate.toUTCString();
                 }catch(ex){
                     return false;
                 }
@@ -109,9 +109,9 @@
                 window.localStorage.setItem(key,value);
             }else{
                 if(this.initDom()){
-                    this.dataDom.load(this.hname);
+                    this.dataDom.load(this.host);
                     this.dataDom.setAttribute(key,value);
-                    this.dataDom.save(this.hname)
+                    this.dataDom.save(this.host)
                 }
             }
         },
@@ -120,7 +120,7 @@
                 return window.localStorage.getItem(key);
             }else{
                 if(this.initDom()){
-                    this.dataDom.load(this.hname);
+                    this.dataDom.load(this.host);
                     return this.dataDom.getAttribute(key);
                 }
             }
@@ -130,9 +130,9 @@
                 localStorage.removeItem(key);
             }else{
                 if(this.initDom()){
-                    this.dataDom.load(this.hname);
+                    this.dataDom.load(this.host);
                     this.dataDom.removeAttribute(key);
-                    this.dataDom.save(this.hname)
+                    this.dataDom.save(this.host)
                 }
             }
         }
