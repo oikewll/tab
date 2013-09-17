@@ -16,7 +16,7 @@
 	    	opt.delay ? opt.delay : opt.delay = def.delay;
 	    	opt.setMem ? opt.setMem : opt.setMem = def.setMem;
 			if(opt.setMem){
-				var tabOpt = $.UserData.getItem("tabOpt");
+				var tabOpt = UserData.getItem("tabOpt");
 				opt.target.eq(tabOpt)
 					.show()
 					.siblings(opt.target)
@@ -45,7 +45,7 @@
 							.hide();
 					}
 					if(opt.setMem){
-						$.UserData.setItem("tabOpt",index)
+						UserData.setItem("tabOpt",index)
 					}
 				}, opt.delay, opt.mode);
 			});
@@ -82,7 +82,7 @@
 	    }
 	});
 	//封装localStorage和UserData方法
-	$.UserData = {
+	var UserData = {
         userData        : null,
         name            : location.hostname,
         isLocalStorage  : window.localStorage ? true : false,
