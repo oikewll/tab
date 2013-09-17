@@ -116,7 +116,7 @@
         },
         getItem : function(key) {
         	if(this.isLocalStorage){
-        		localStorage.setItem(key,value);
+        		localStorage.getItem(key);
         	}else{
 	        	if(UserData.init()){
 		            UserData.userData.load(UserData.name);
