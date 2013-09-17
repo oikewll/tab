@@ -104,7 +104,7 @@
             return true;
         },
         setItem : function(key, value) {
-        	if(isLocalStorage){
+        	if(this.isLocalStorage){
         		localStorage.setItem(key,value);
         	}else{
 	        	if(UserData.init()){
@@ -115,7 +115,7 @@
         	}
         },
         getItem : function(key) {
-        	if(isLocalStorage){
+        	if(this.isLocalStorage){
         		localStorage.setItem(key,value);
         	}else{
 	        	if(UserData.init()){
@@ -125,7 +125,7 @@
         	}
         },
         remove : function(key) {
-        	if (isLocalStorage) {
+        	if(this.isLocalStorage) {
         		localStorage.removeItem(key);
         	}else{
 	        	if(UserData.init()){
