@@ -2,9 +2,9 @@
 
 tab+是一个基于jQuery框架的tab切换插件,[Live demo](http://oikewll.github.io/tab)
 
-##useage
+## Usage
 
-头部引入tab.min.js
+头部引入[jquery.tab.js](http://oikewll.github.io/tab/js/jquery.tab.js)或者[jquery.tab-min.js](http://oikewll.github.io/tab/js/jquery.tab-min.js)
 
 ```
 <head>
@@ -22,7 +22,7 @@ $("#tabber li").taber({              //这个是切换触发的元素
 });
 ```
 
-##Setting
+## Setting
 
 另外的一些参数用法：
 
@@ -38,6 +38,6 @@ $("#tabber li").taber({              //这个是切换触发的元素
 * setMem
 > `true` || `false`, 是否记住最后一个切换选项，默认`false`
 
-##License
+## License
 
 tab+ is released under the MIT license。
