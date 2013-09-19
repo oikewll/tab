@@ -38,6 +38,9 @@ $("#tabber li").taber({              //这个是切换触发的元素
 * setMem
 > `true` || `false`, 是否记住最后一个切换选项，默认`false`
 
+* memName
+> `strings` , 自定义setMem的名字，默认`tabOpt`
+
 ## License
 
 tab+ is released under the MIT license。
