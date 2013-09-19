@@ -6,7 +6,8 @@
 		mode     : 'hover',    //'hover','click'
 		show     : 'default',  //'default','fade'
 		delay    : 400,        //mouseover的停留时间
-		setMem   : false       //记住最后一次打开的tab
+		setMem   : false,      //记住最后一次打开的tab
+		memName  : 'tabOpt'    //默认的localStorage
 	};
 	$.extend($.fn, {
 	    taber : function(opt){
@@ -15,8 +16,9 @@
 	    	opt.show ? opt.show : opt.show = def.show;
 	    	opt.delay ? opt.delay : opt.delay = def.delay;
 	    	opt.setMem ? opt.setMem : opt.setMem = def.setMem;
+	    	opt.memName ? opt.memName : opt.memName = def.memName;
 			if(opt.setMem){
-				var tabOpt = UserData.getItem("tabOpt");
+				var tabOpt = UserData.getItem(opt.memName);
 				opt.target.eq(tabOpt)
 					.show()
 					.siblings(opt.target)
@@ -45,7 +47,7 @@
 							.hide();
 					}
 					if(opt.setMem){
-						UserData.setItem("tabOpt",index)
+						UserData.setItem(opt.memName,index)
 					}
 				}, opt.delay, opt.mode);
 			});
