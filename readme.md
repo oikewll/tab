@@ -1,10 +1,10 @@
 # jquery tab+ plugin
 
-tab+是一个基于jQuery框架的tab切换插件,[Live demo](http://oikewll.github.io/tab)
+tab+ is a jQuery plugin for switching,[try it here](http://oikewll.github.io/tab).
 
 ## Usage
 
-头部引入[jquery.tab.js](http://oikewll.github.io/tab/js/jquery.tab.js)或者[jquery.tab-min.js](http://oikewll.github.io/tab/js/jquery.tab-min.js)
+base on jquery.js,and include [jquery.tab.js](http://oikewll.github.io/tab/js/jquery.tab.js)or[jquery.tab-min.js](http://oikewll.github.io/tab/js/jquery.tab-min.js) like this:
 
 ```
 <head>
@@ -13,33 +13,33 @@ tab+是一个基于jQuery框架的tab切换插件,[Live demo](http://oikewll.git
 </head>
 ```
 
-设置切换对象
+set the object need switch.
 
 ```js
-$("#tabber li").taber({              //这个是切换触发的元素
-	target    : $("#wrapCont li"),   //切换区元素
-	tabClass  : 'current'            //触发元素的class
+$("#tabber li").taber({              //switch trigger element
+	target    : $("#wrapCont li"),   //switch content
+	tabClass  : 'current'            //current class for style
 });
 ```
 
 ## Setting
 
-另外的一些参数用法：
+another parameter：
 
 * mode
-> `hover` || `click`  ,默认是`hover`鼠标划过，灵敏度用`delay`参数设置
+> 'String' —— `hover` || `click`  ,默认是`hover`鼠标划过，灵敏度用`delay`参数设置
 
 * show
-> `default` || `fade`, 切换内容区的显示效果，默认是`default`，`fade`是淡出效果
+> 'String' —— `default` || `fade`, 切换内容区的显示效果，默认是`default`，`fade`是淡出效果
 
 * delay
-> int , mode是hover设置这项，默认是`400`毫秒，1000毫秒＝1秒
+> 'Number' ——  , mode是hover设置这项，默认是`400`毫秒，1000毫秒＝1秒
 
 * setMem
-> `true` || `false`, 是否记住最后一个切换选项，默认`false`
+> 'Boolean' —— `true` || `false`, 是否记住最后一个切换选项，默认`false`
 
 * memName
-> `strings` , 自定义setMem的名字，默认`tabOpt`
+> 'String' ——  , 自定义setMem的名字，默认`tabOpt`
 
 ## License
 
