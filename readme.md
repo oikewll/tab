@@ -4,11 +4,11 @@ tab+ is a jQuery plugin for switching,[try it here](http://oikewll.github.io/tab
 
 ## Usage
 
-base on jquery.js,and include [jquery.tab.js](http://oikewll.github.io/tab/js/jquery.tab.js)or[jquery.tab-min.js](http://oikewll.github.io/tab/js/jquery.tab-min.js) like this:
+base on jquery.js,and include [jquery.tab.js](http://oikewll.github.io/tab/js/jquery.tab.js) or [jquery.tab-min.js](http://oikewll.github.io/tab/js/jquery.tab-min.js) like this:
 
 ```
 <head>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     <script src="http://oikewll.github.io/tab/js/jquery.tab.js"></script>
 </head>
 ```
