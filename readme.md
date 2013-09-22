@@ -27,20 +27,20 @@ $("#tabber li").taber({              //switch trigger element
 another parameter：
 
 * mode
-> 'String' —— `hover` || `click`  ,默认是`hover`鼠标划过，灵敏度用`delay`参数设置
+> 'String' —— `hover` || `click` ,mouse event, default `hover` to switch trigger,you can set daley time in `delay` option;
 
 * show
-> 'String' —— `default` || `fade`, 切换内容区的显示效果，默认是`default`，`fade`是淡出效果
+> 'String' —— `default` || `fade`, switch content mode;
 
 * delay
-> 'Number' ——  , mode是hover设置这项，默认是`400`毫秒，1000毫秒＝1秒
+> 'Number' ——  , default is `400` ms,1000ms＝1s;
 
 * setMem
-> 'Boolean' —— `true` || `false`, 是否记住最后一个切换选项，默认`false`
+> 'Boolean' —— `true` || `false`, remember the tab you choose when you close/refresh browser, default is false;
 
 * memName
-> 'String' ——  , 自定义setMem的名字，默认`tabOpt`
+> 'String' ——  , name of the localStorage by custom, default `tabOpt`
 
 ## License
 
-tab+ is released under the MIT license。
+tab+ is released under the [MIT](http://opensource.org/licenses/MIT) license。
