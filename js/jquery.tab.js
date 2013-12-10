@@ -1,141 +1,103 @@
-(function($) {
-	//set default
-	$.tabOption = {
-		target   : undefined,
-		tabClass : 'current',
-		mode     : 'hover',    //'hover','click'
-		show     : 'default',  //'default','fade'
-		delay    : 400,        //mouseover的停留时间
-		setMem   : false,      //记住最后一次打开的tab
-		memName  : 'tabOpt'    //默认的localStorage
-	};
+;(function($) {
+
+	"use strict"
+
+	// 简易封装localStorage和UserData方法, 更多请参考:
+	// https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
+	// https://github.com/marcuswestin/store.js
+	// http://msdn.microsoft.com/en-us/library/ms531424(v=vs.85).aspx
+	var UserData = (function(global) {
+		return global.localStorage ? global.localStorage : (function(){
+			var userData = null;
+			var name = location.hostname;
+			try {
+                userData = document.createElement('INPUT');
+                userData.type = "hidden";
+                userData.style.display = "none";
+                userData.addBehavior("#default#userData");
+                document.body.appendChild(userData);
+                userData.expires = new Date(365 * 24 * 60 * 60 * 1000 + $.now()).toUTCString();
+            } catch(e) {
+                return {
+                	setItem: function(){},
+                	getItem: function(){},
+                	removeItem: function(){}
+                };
+            }
+            return {
+            	setItem: function(key, value){
+            		userData.load(name);
+	                userData.setAttribute(key, value);
+	                userData.save(name);
+            	},
+            	getItem: function(key){
+            		userData.load(name);
+		            return userData.getAttribute(key)
+            	},
+            	removeItem: function(key){
+            		userData.load(name);
+		            userData.removeAttribute(key);
+		            userData.save(name);
+            	}
+            }
+		})();
+	})(window);
+
 	$.extend($.fn, {
-	    taber : function(opt){
-	    	var def = $.tabOption;
-	    	opt.mode ? opt.mode : opt.mode = def.mode;
-	    	opt.show ? opt.show : opt.show = def.show;
-	    	opt.delay ? opt.delay : opt.delay = def.delay;
-	    	opt.setMem ? opt.setMem : opt.setMem = def.setMem;
-	    	opt.memName ? opt.memName : opt.memName = def.memName;
-			if(opt.setMem){
-				var tabOpt = UserData.getItem(opt.memName);
-				opt.target.eq(tabOpt)
-					.show()
-					.siblings(opt.target)
-					.hide();
-				$(this).eq(tabOpt)
-					.addClass(opt.tabClass)
-					.siblings($(this))
-					.removeClass(opt.tabClass);
+
+	    taber : function(opt) {
+
+	    	// options
+	    	opt = $.extend({
+				target   : undefined,
+				tabClass : 'current',
+				mode     : 'hover',    //'hover','click'
+				show     : 'default',  //'default','fade'
+				delay    : 400,        //mouseover的停留时间
+				setMem   : false,      //记住最后一次打开的tab
+				memName  : 'tabOpt'    //默认的localStorage
+			}, opt);
+
+			var $this = $(this);
+
+			var setActive = function(index) {
+				index = index >> 0;
+				$(opt.target).eq(index)[opt.show === 'fade' ? 'fadeIn' : 'hide']().siblings(opt.target).hide();
+				$this.removeClass(opt.tabClass).eq(index).addClass(opt.tabClass);
+				opt.setMem && UserData.setItem(opt.memName, index);
 			}
-			$(this).each(function (){
-				var index = $(this).index();
-				var _that = this;
+
+			setActive(UserData.getItem(opt.memName));
+
+			$(this).each(function (index){
 				$(this).hoverEvt(function(){
-					$(_that).addClass(opt.tabClass)
-						.siblings($(this))
-						.removeClass(opt.tabClass);
-					if(opt.show == 'fade'){
-						opt.target.eq(index)
-							.fadeIn()
-							.siblings(opt.target)
-							.hide();
-					}else{
-						opt.target.eq(index)
-							.show()
-							.siblings(opt.target)
-							.hide();
-					}
-					if(opt.setMem){
-						UserData.setItem(opt.memName,index)
-					}
+					setActive(index);
 				}, opt.delay, opt.mode);
 			});
 	    },
 	    hoverEvt : function(fn, time, mode){
-		 	var waitInterval;
+		 	var waitInterval = 0;
 			switch (mode) {
 	            case "click":
-	                if (waitInterval) {
-	                    window.clearTimeout(waitInterval);
-	                }
-	                $(this).click(function(){
+	                $(this).click(function(event){
+	                	event.preventDefault();
 	                	fn();
-	                })
-	            break;
+	                });
+	            	break;
 	            case "hover":
+	            default:
 	                $(this).bind({
 	                	mouseover:function(){
-		                    if (waitInterval) {
-		                        window.clearTimeout(waitInterval);
-		                    }
-		                    waitInterval = window.setTimeout(function () {
+		                    waitInterval && clearTimeout(waitInterval);
+		                    waitInterval = setTimeout(function () {
 		                        fn();
 		                    }, time);
 	                	},
 	                	mouseout:function(){
-		                	if (waitInterval != undefined) {
-		                        window.clearTimeout(waitInterval);
-		                    }	
+		                	clearTimeout(waitInterval);
 	                	}
-	                })
-	            break;
+	                });
 	        }
 	    }
 	});
-	//封装localStorage和UserData方法
-	var UserData = {
-        userData        : null,
-        name            : location.hostname,
-        isLocalStorage  : window.localStorage ? true : false,
-        init : function(){
-            if (!UserData.userData) {
-                try {
-                    UserData.userData = document.createElement('INPUT');
-                    UserData.userData.type = "hidden";
-                    UserData.userData.style.display = "none";
-                    UserData.userData.addBehavior ("#default#userData");
-                    document.body.appendChild(UserData.userData);
-                    var expires = new Date();
-                    expires.setDate(expires.getDate()+365);
-                    UserData.userData.expires = expires.toUTCString();
-                } catch(e) {
-                    return false;
-                }
-            }
-            return true;
-        },
-        setItem : function(key, value) {
-        	if(this.isLocalStorage){
-        		localStorage.setItem(key,value)
-        	}else{
-	        	if(UserData.init()){
-	                UserData.userData.load(UserData.name);
-	                UserData.userData.setAttribute(key, value);
-	                UserData.userData.save(UserData.name);
-	            }
-        	}
-        },
-        getItem : function(key) {
-        	if(this.isLocalStorage){
-        		return window.localStorage.getItem(key);
-        	}else{
-	        	if(UserData.init()){
-		            UserData.userData.load(UserData.name);
-		            return UserData.userData.getAttribute(key)
-	            }
-        	}
-        },
-        remove : function(key) {
-        	if(this.isLocalStorage) {
-        		localStorage.removeItem(key);
-        	}else{
-	        	if(UserData.init()){
-		            UserData.userData.load(UserData.name);
-		            UserData.userData.removeAttribute(key);
-		            UserData.userData.save(UserData.name);
-	            }
-        	}
-        }
-    };
 })(jQuery);
